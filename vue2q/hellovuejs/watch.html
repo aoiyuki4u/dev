@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf">
+  <title>Welcome to Vue</title>
+  <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    x:<input type="text" v-model="x" /><br>
+    y:<input type="text" v-model="y" /><br>
+     = {{sum}}
+</div>
+<script type="text/javascript">
+var vm1 = new Vue({
+    el : "#example",
+    // data:{x:0,y:0,sum:0},
+    data:{x:0,y:0},
+    computed:{
+        sum:function(){
+            var result = Number(this.x) + Number(this.y);
+            if(isNaN(result)) return 0;
+            else return result;
+        }
+    }
+    // watch:{
+    //     x:function(v){
+    //         console.log("## x 변경");
+    //         var result = Number(v) + Number(this.y);
+    //         if(isNaN(result)) this.sum = 0;
+    //         else this.sum = result;
+    //     },
+    //     y:function(v){
+    //         console.log("## y 변경");
+    //         var result = Number(this.x) + Number(v);
+    //         if(isNaN(result)) this.sum = 0;
+    //         else this.sum = result;
+    //     }
+    // }
+});
+
+</script>
+<style>
+.list {width:400px;border:1px solid #000;border-collapse: collapse;}
+.list td, .list th{border:1px solid #000;text-align:center;}
+.list > thead > tr{color:yellow;background-color:purple;}
+</style>
+</body>
+</html>

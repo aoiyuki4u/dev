@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>Vue : Hello</title>
+    </head>
+    <body>
+        <div id="app" claas="wrap">
+            <h1>{{message}}</h1>
+            <h1>Hello {{name}}</h1>
+            <input v-model="name" type="text" placeholder="Name">
+
+            <br><br><hr><br>
+            
+            <p v-if="!message2">You must send a message for help!</p>
+            <p v-else>You have sent a message!</p>
+            <textarea v-model="message2"></textarea><br>
+            <button v-show="message2">Send word to allies for help!</button>
+
+            <br><br><hr><br>
+
+            <div v-if="gender === 'male' || gender === 'female'">
+                <h1>Hello,
+                    <!-- render span if 'gender' equals to 'male' -->
+                    <span v-show="gender === 'male'">Mister {{name}}.</span>
+                    <!-- render span if 'gender' equals to 'female' -->
+                    <span v-if="gender === 'female'">Miss {{name}}.</span>
+                </h1>
+            </div>
+            <!-- v-else immediately follows v-if block to work -->
+            <h1 v-else>So you can't decide. Fine!</h1>
+            <!-- show inputs -->
+            <label for="gender">Enter your gender:</label><br>
+            <input v-model="gender" class="form-control" id="gender"><br>
+            <label for="name">Enter your name:</label><br>
+            <input v-model="name" class="form-control" id="name">
+
+        </div>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                name:'',
+                message:'Hello World',
+                message2:'text test',
+                gender: 'female',
+                name: 'Universe',
+            }
+        });
+    </script>
+    <style type="text/css">
+        *{margin:0;padding:0;}
+        .wrap{padding:30px;}
+    </style>
+</html>

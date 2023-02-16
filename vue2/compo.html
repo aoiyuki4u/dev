@@ -1,0 +1,81 @@
+<html>
+<head>
+    <title>Vue : Component</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="wrap">
+    <div class="container">
+        <ul class="list-group">
+            <story v-for="story in storiesBy('Alex')" :story="story" class="list-group-item"></story>
+        </ul>
+        <ul class="list-group">
+            <story v-for="story in storiesBy('John')" :story="story" class="list-group-item"></story>
+        </ul>
+
+        <div class="gorm-group">
+            <label for="query">What are you looking for?</label>
+            <input v-model="query" class="form-control">
+        </div>
+
+        <ul class="list-group">
+            <story v-for="story in search" :story="story"></story>
+        </ul>
+    </div>
+</div>
+<template id="story-template">
+    <h1>{{story.body}} {{story.writer}}</h1>
+</template>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+<script type="text/javascript">
+Vue.component('story', {
+    props:['story'],
+    template: '#story-template'
+});
+new Vue({
+    el:'.container',
+    data:{
+        stories: [
+            {
+                body: "I crashed my car today!",
+                writer: "Alex"
+            },
+            {
+                body: "Yesterday, someone stole my bag!",
+                writer: "John"
+            },
+            {
+                body: "Someone ate my chocolate...",
+                writer: "John"
+            },
+            {
+                body: "I ate someone's chocolate!",
+                writer: "Alex"
+            },
+        ],
+        query: ' '
+    },
+    methods:{
+        storiesBy: function (writer) {
+            return this.stories.filter(function (story) {
+                return story.writer === writer
+            })
+        }
+    },
+    computed: {
+        search: function () {
+            var query = this.query
+            return this.stories.filter(function (story) {
+                return story.body.includes(query)
+            })
+        }
+    }
+});
+</script>
+<style type="text/css">
+    *{margin:0;padding:0;}
+    .wrap{padding:30px;}
+</style>
+</html>

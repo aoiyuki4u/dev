@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf">
+<title>Welcome to Vue</title>
+<script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
+</head>
+<body>
+<div id="example" @contextmenu.prevent="ctxStop" @mouseup.left="leftMouse" @mouseup.right="rightMouse">
+    <div>
+        left Click : 왼쪽으로<br/>
+        Rigth Click : 오른쪽으로
+    </div>
+    <img src="https://cdn.vectorstock.com/i/preview-1x/25/74/paw-logo-cat-dog-animal-pet-footprint-icon-vector-23032574.webp" v-bind:style="{width:'100px',height:'100px',position:'absolute', left:pos.left+'px', top:pos.top+'px'}" />
+</div>
+<script type="text/javascript">
+var vm = new Vue({
+    el:'#example',
+    data:{
+        pos:{left:100,top:100}
+    },
+    methods:{
+        ctxStop:function(e){},
+        leftMouse:function(e){
+            if(this.pos.left>30){
+                this.pos.left -= 30;
+                console.log("Mouse Left")
+            }
+        },
+        rightMouse:function(e){
+            this.pos.left += 30;
+            console.log("Mouse Right")
+        }
+    }
+})
+</script>
+<style>
+html,body{margin:0;padding:0;}
+.example{height:98vh;min-height:100%;padding:5px;}
+.layout1{margin:30px;}
+.list {width:400px;border:1px solid #000;border-collapse: collapse;}
+.list td, .list th{border:1px solid #000;text-align:center;}
+.list > thead > tr{color:yellow;background-color:purple;}
+</style>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>Vue : Class</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="wrap">
+        <ul>
+            <!-- <li 
+            :class="{'completed':task.done}"
+            :style="styleObject"
+            v-for="(task, index) in tasks"
+            :key="index">
+                {{task.body}}
+                <button @click="completeTask(task)" class="btn">Just do it!</button>
+            </li> -->
+            <li 
+            :class="{'completed':task.done}"
+            :style="styleObject"
+            v-for="(task, index) in tasks"
+            :key="index">
+                {{task.body}}
+                <button @click="completeTask(task)" class="btn">Just do it!</button>
+            </li>
+        </ul>
+        <pre>{{$data}}</pre>
+    </div>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+<script type="text/javascript">
+new Vue({
+    el:'.wrap',
+    data:{
+        tasks:[
+            {body:'body1', done:true},
+            {body:'body2', done:true},
+            {body:'body3', done:false},
+        ],
+        styleObject:{
+            fontSize:'25px'
+        }
+    },
+    methods:{
+        completeTask:function(task){
+            task.done = !task.done
+        }
+    }
+});
+</script>
+<style type="text/css">
+*{margin:0;padding:0;}
+.completed{text-decoration: line-through;}
+</style>
+</html>

@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>Vue : Event</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="wrap">
+    <div class="container text-center">
+        <p style="font-size:140px">{{votes}}</p>
+        <!-- <button class="btn btn-primary" @click="vote">Vote</button> -->
+        <div class="row">
+            <food @voted="countVote" name="Cheeseburger"></food>
+            <food @voted="countVote" name="Double Bacon Burger"></food>
+            <food @voted="countVote" name="Rodeo Burger"></food>
+        </div>
+    </div>
+    <br>
+    <pre>{{$data}}</pre>
+</div>
+
+<template id="food">
+    <div class="text-center col-lg-4">
+        <p style="font-size:40px">{{votes}}</p>
+        <button class="btn btn-default" @click="vote">{{name}}</button>
+        <pre>{{$data}}</pre>
+    </div>
+</template>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+<script type="text/javascript">
+Vue.component('food', {
+    template: '#food',
+    props:['name'],
+    data:function(){
+        return{
+            votes:0
+        }
+    },
+    methods:{
+        vote:function(){
+            this.votes++;
+            this.$emit('voted')
+        }
+    },
+});
+new Vue({
+    el:'.wrap',
+    data:{
+        votes:0,
+    },
+    methods:{
+        countVote:function (){
+            this.votes++
+        },
+    }
+});
+
+</script>
+<style type="text/css">
+    *{margin:0;padding:0;}
+    .wrap{padding:30px;}
+</style>
+</html>

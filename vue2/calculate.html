@@ -1,0 +1,106 @@
+<html>
+<head>
+    <title>Vue : calculate</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <button @click="vote">Up! {{votes}}</button>
+        <br><br><hr><br>
+
+        <form class="form-inline">
+            <input v-model.number="a" @keyup.enter="calculate" class="form-control">
+            <select v-model="operator" @keyup="calculate" class="form-control">
+                <option>+</option>
+                <option>-</option>
+                <option>*</option>
+                <option>/</option>
+            </select>
+            <input v-model.number="b" @keyup="calculate" class="form-control">
+            <button type="submit" @click.prevent="calculate" class="btn btn-primary">Calculate</button>
+        </form>
+        <h2>Result: {{a}}  {{operator}}  {{b}} = {{c}}</h2>
+        <br><br><hr><br>
+
+        <form class="form-inline">
+            <input v-model.number="aa"> 
+            + 
+            <input v-model.number="bb">
+        </form>
+        <h2>Result: {{aa}} + {{bb}} = {{cc}}</h2>
+        <br><br><hr><br>
+
+        <ul class="list-group">
+            <li v-for="(candidate, index) in candidates" :key="index" class="list-group-item">
+                {{candidate.name}} {{candidate.votes}}
+                <button class="btn btn-default" @click="candidate.votes++">Vote</button>
+            </li>
+        </ul>
+        <input @keyup.delete="clear" class="form-control" placeholder="press 'delete' to reset">
+        <h2>Our mayor is {{mayor.name}}!</h2>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+<script type="text/javascript">
+new Vue({
+    el: '.container',
+    data: {
+        votes:0,
+        a: 1,
+        b: 2,
+        c: null,
+        operator: '+',
+        aa: 1,
+        bb: 2,
+        candidates:[
+            {name: "Mr. Park", votes: 14},
+            {name: "Mr. Kim", votes: 13},
+            {name: "Mr. jung", votes: 14},
+            {name: "Mr. Hong", votes: 13},
+        ]
+    },
+    methods: {
+        vote:function(){
+            this.votes++;
+        },
+        calculate: function () {
+            switch (this.operator) {
+                case '+':
+                this.c = this.a + this.b
+                break;
+                case '-':
+                this.c = this.a - this.b
+                break;
+                case '*':
+                this.c = this.a * this.b
+                break;
+                case '/':
+                this.c = this.a / this.b
+                break;
+            }
+        },
+        //this method runs when the key 'delete' is pressed
+        clear: function () {
+            //Turn votes of all candidate to 0 using map() function.
+            this.candidates = this.candidates.map(function (candidate) {
+                candidate.votes = 0;
+                return candidate;
+            })
+        }
+    },
+    computed:{
+        cc:function(){
+            return this.aa + this.bb
+        },
+        mayor: function () {
+            //first we sort the array descending
+            var candidatesSorted = this.candidates.sort(function (a, b) {
+                return b.votes - a.votes;
+            });
+            //the mayor will be the first item
+            return candidatesSorted[0];
+        }
+    }
+});
+</script>
+</html>

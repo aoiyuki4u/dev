@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>Vue : Filter</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>Gotham</h1>
+    <ul class="list-group">
+        <li v-for="hero in infoheroes" class="list-group-item">
+            myRank : {{hero.myRank}} , {{hero.firstname}} {{hero.Wayne}} {{hero.secretId}}
+        </li>
+    </ul>
+    <br><br><hr><br>
+
+    <ul class="list-group">
+        <li v-for="hero in _.orderBy(heroes, ['myRank'], [status])" class="list-group-item">
+            myRank : {{hero.myRank}} , {{hero.firstname}} {{hero.Wayne}} {{hero.secretId}}
+        </li>
+    </ul>
+    <button class="btn btn-default" v-on:click="reverseStatus">Reverse Order</button>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+<script type="text/javascript">
+// Vue.filter('snitch', function(hero){
+//     return hero.secretId + ' is '
+//         + hero.firstname + '  '
+//         + hero.lastname + ' in real life. '
+//         + 'My Ranking : ' + hero.myRank 
+// });
+new Vue({
+    el: '.container',
+    data: {
+        heroes: [
+            {firstname:'Bruce', lastname:'Wayne', secretId:'Batman', myRank:1},
+            {firstname:'Clark', lastname:'Kent', secretId:'Superman', myRank:2},
+            {firstname:'Jay', lastname:'Garrick', secretId:'Flash', myRank:3},
+            {firstname:'Peter', lastname:'Wayne', secretId:'Spider-man', myRank:0}
+        ],
+        status : 'desc'
+    },
+    methods:{
+        reverseStatus:function(){
+            this.status = (this.status === 'desc') ? 'asc' : 'desc'
+        }
+    },
+    computed:{
+        infoheroes: function () {
+            var status = this.status
+            return _.orderBy(this.heroes, 'myRank', [status])
+        }
+    }
+})
+</script>
+<style type="text/css">
+    *{margin:0;padding:0;}
+    .wrap{padding:30px;}
+</style>
+</html>

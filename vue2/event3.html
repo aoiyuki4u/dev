@@ -1,0 +1,93 @@
+<html>
+<head>
+    <title>Vue : Event</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="wrap">
+    <div class="container text-center">
+        <p style="font-size:140px">{{votes.count}}</p>
+        <button class="btn btn-danger" @click="reset">Reset votes</button>
+        <hr>
+        <div class="row">
+            <food name="Cheeseburger"></food>
+            <food name="Double Bacon Burger"></food>
+            <food name="Rodeo Burger"></food>
+        </div>
+        <h2>Log:</h2>
+        <ul class="list-group">
+            <li class="list-group-item" v-for="(vote, index) in votes.log" :key="index">{{vote}}</li>
+        </ul>
+    </div>
+    <br>
+    <pre>{{$data}}</pre>
+</div>
+
+<template id="food">
+    <div class="text-center col-lg-4">
+        <p style="font-size:40px">{{votes}}</p>
+        <button class="btn btn-default" @click="vote">{{name}}</button>
+        <pre>{{$data}}</pre>
+    </div>
+</template>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+<script type="text/javascript">
+let bus = new Vue()
+
+Vue.component('food', {
+    template: '#food',
+    props:['name'],
+    data:function(){
+        return{
+            votes:0
+        }
+    },
+    methods:{
+        vote:function(e){
+            let food = e.srcElement.textContent;
+            this.votes++
+            bus.$emit('voted', food)
+        },
+        reset:function(){
+            this.votes = 0;
+        }
+    },
+    created(){
+        bus.$on('reset', this.reset)
+    }
+});
+new Vue({
+    el:'.wrap',
+    data:{
+        votes:{
+            count:0,
+            log:[]
+        }
+    },
+    methods:{
+        countVote:function (food){
+            this.votes.count++
+            this.votes.log.push(food + ' received a vote.')
+        },
+        reset:function(){
+            this.votes = {
+                count:0,
+                log:[]
+            }
+            bus.$emit('reset')
+        }
+    },
+    created(){
+        bus.$on('voted', this.countVote)
+    }
+});
+
+</script>
+<style type="text/css">
+    *{margin:0;padding:0;}
+    .wrap{padding:30px;}
+</style>
+</html>

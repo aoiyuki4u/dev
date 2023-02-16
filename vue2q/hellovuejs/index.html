@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf">
+  <title>Welcome to Vue</title>
+  <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script>
+</head>
+<body>
+<div id="simple">
+    <h2>{{message}}</h2>
+    <h2 v-text="message"></h2>
+    <h2 v-html="message"></h2>
+    <span v-pre>{{message}}</span>
+    <br>
+    <span v-once>{{message}}</span>
+    <br>
+    <input id="a" type="text" :value="message">
+    <br>
+    <img :src="imagePath" />
+    <br>
+</div>
+<div id="simple2">
+    <input type="text" v-model="name" placeholder="input name">
+    <br>
+    <h2 v-html="name"></h2>
+</div>
+<div id="simple3">
+    <div>choice fruit</div>
+    <input type="checkbox" value="1" v-model="fruits" id="fruit1"><label for="fruit1">사과</label>
+    <input type="checkbox" value="2" v-model="fruits" id="fruit2"><label for="fruit2">키위</label>
+    <input type="checkbox" value="3" v-model="fruits" id="fruit3"><label for="fruit3">포도</label>
+    <input type="checkbox" value="4" v-model="fruits" id="fruit4"><label for="fruit4">수박</label>
+    <input type="checkbox" value="5" v-model="fruits" id="fruit5"><label for="fruit5">참외</label>
+    <br>    
+</div>
+<br>
+<div id="simple4">
+    <div class="choice-area">
+        <span v-html="fruits"></span>
+    </div>
+</div>
+<script type="text/javascript">
+var model = {
+    message : 'Start',
+    imagePath:'http://sample2.bmaster.kro.kr/photos/61.jpg',
+    fruits:[]
+};
+var simple = new Vue({
+    el:'#simple',
+    data:model
+});
+var twoway = new Vue({
+    el:'#simple2',
+    data:{
+        name:''
+    }
+});
+var simple3 = new Vue({
+    el:'#simple3',
+    data:model
+});
+var simple4 = new Vue({
+    el:'#simple4',
+    data:model
+});
+</script>
+</body>
+</html>

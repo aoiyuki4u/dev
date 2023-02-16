@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>Vue : Class</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="wrap">
+    <div class="container text-center">
+        <div class="box" v-bind:class="{'red':color, 'blue':!color}"></div>
+        <div class="box" v-bind:class="{'purple':color, 'green':!color}"></div>
+        <div class="box" v-bind:class="{'red':color, 'blue':!color}"></div>
+        <div class="box" v-bind:class="{'purple':color, 'green':!color}"></div>
+        <div class="box" v-bind:class="[color ? 'red' : 'blue']"></div>
+        <div class="box" v-bind:class="[color ? 'purple' : 'green']"></div>
+        <div class="box" v-bind:class="[color ? 'red' : 'blue']"></div>
+        <div class="box" v-bind:class="[color ? 'purple' : 'green']"></div>
+        <button @click="flipColor" class="btn btn-block btn-success">flip color!</button>
+    </div>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+<script type="text/javascript">
+new Vue({
+    el:'.wrap',
+    data:{
+        color:true,
+    },
+    methods:{
+        flipColor:function(){
+            this.color=!this.color
+        }
+    }
+});
+</script>
+<style type="text/css">
+*{margin:0;padding:0;}
+.wrap{padding:30px;}
+.red{background-color:#ff0000;}
+.blue{background-color:#0000ff;}
+.purple{background-color:#7b1fa1;}
+.green{background-color:#4caf50;}
+.box{
+    float:left;
+    width:200px;
+    height:200px;
+    margin:40px;
+    border:1px solid rgba(0,0,0,.2)
+}
+</style>
+</html>

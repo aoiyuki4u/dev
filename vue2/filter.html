@@ -1,0 +1,125 @@
+<html>
+<head>
+    <title>Vue : Filter</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="wrap">
+    <div class="container">
+        <div>
+            <h3>Park's stories</h3>
+            <ul class="list-group">
+                <li v-for="story in storiesBy('Park')" class="list-group-item">
+                    {{story.writer}} said "{{story.plot}}"
+                </li>
+            </ul>
+            <h3>Lee's stories</h3>
+            <ul class="list-group">
+                <li v-for="story in storiesBy('Lee')" class="list-group-item">
+                    {{story.writer}} said "{{story.plot}}"
+                </li>
+            </ul>
+        </div>
+        <br><br><hr><br>
+
+        <div>
+            <h3>Let's hear some famous stories ({{famous.length}})</h3>
+            <ul class="list-group">
+                <li v-for="story in famous" class="list-group-item">
+                    {{story.writer}} said "{{story.plot}}" and upvoted {{story.upvotes}}
+                </li>
+            </ul>
+        </div>
+        <br><br><hr><br>
+
+        <div>
+            <h3>Let's hear some stories</h3>
+            <div class="form-group">
+                <label for="query">검색</label>
+                <input v-model="query" class="form-control">
+            </div>
+            <ul class="list-group">
+                <li v-for="story in search" class="list-group-item">
+                    {{story.writer}} said "{{story.plot}}"
+                </li>
+            </ul>
+        </div>
+        <br><br><hr><br>
+
+        <div>
+            <h3>Let's hear some stories</h3>
+            <ul class="list-group">
+                <li v-for="story in orderedStories" class="list-group-item">
+                    {{story.writer}} said "{{story.plot}}" and upvoted {{story.upvotes}} times.
+                </li>
+            </ul>
+            <button @click="order = order * -1">Reverse Order</button>
+        </div>
+
+
+    </div>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+<script type="text/javascript">
+new Vue({
+    el:'.container',
+    data:{
+        stories:[
+            {
+                plot:"오늘 점심은",
+                writer:"Park",
+                upvotes:1
+            },
+            {
+                plot:"어제 점심은",
+                writer:"Lee",
+                upvotes:2
+            },
+            {
+                plot:"깐부 한식 뷔폐",
+                writer:"Lee",
+                upvotes:3
+            },
+            {
+                plot:"김치볶음밥",
+                writer:"Park",
+                upvotes:4
+            },
+        ],
+        query:'',
+        order:-1,
+    },
+    computed:{
+        famous:function(){
+            return this.stories.filter(function(item){
+                return item.upvotes>1;
+            });
+        },
+        search:function(){
+            let query = this.query
+            return this.stories.filter(function(story){
+                return story.plot.includes(query)
+            });
+        },
+        orderedStories:function(){
+            let order = this.order
+            return this.stories.sort(function(a, b){
+                return (a.upvotes - b.upvotes) * order;
+            });
+        }
+    },
+    methods:{
+        storiesBy:function(writer){
+            return this.stories.filter(function(story){
+                return story.writer === writer
+            });
+        },
+    }
+});
+</script>
+<style type="text/css">
+    *{margin:0;padding:0;}
+    .wrap{padding:30px;}
+</style>
+</html>

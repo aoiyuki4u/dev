@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf">
+<title>Welcome to Vue</title>
+<script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
+</head>
+<body>
+<template id="listTemplate">
+    <div>
+        <table class="list">
+            <thead>
+                <th>번호</th><th>이름</th><th>전화번호</th><th>주소</th>
+            </thead>
+            <tboyd id="contacts">
+                <tr v-for="contact in contacts">
+                    <td>{{contact.no}}</td>
+                    <td>{{contact.name}}</td>
+                    <td>{{contact.tel}}</td>
+                    <td>{{contact.address}}</td>
+                </tr>
+            </tboyd>
+        </table>
+    </div>
+</template>
+<div id="app">
+    <h1>예방 접종</h1>
+    <hr />
+    <h3>1차 : 5월 1일 ~ 3일</h3>
+    <contactlist-component :contacts="list1"></contactlist-component>
+    <h3>2차 : 6월 1일 ~ 3일</h3>
+    <contactlist-component :contacts="list2"></contactlist-component>
+</div>
+<script type="text/javascript">
+Vue.component('contactlist-component', {
+    template : '#listTemplate',
+    props:['contacts']
+})
+</script>
+<script type="text/javascript">
+Vue.config.devtools = true;
+var v = new Vue({
+    el : '#app',
+    data : {
+        list1 : [
+            {"no":97,"name":"Kalisa Rogers","tel":"010-3456-8296","address":"서울시" },
+            {"no":96,"name":"Jesse James","tel":"010-3456-8295","address":"서울시" },
+            {"no":95,"name":"Jennifer Walker","tel":"010-3456-8294","address":"서울시" }
+        ],
+        list2 : [
+            {"no":82,"name":"Zenon Howard","tel":"010-3456-8281","address":"서울시"},
+            {"no":81,"name":"Kylie Allen","tel":"010-3456-8280","address":"서울시"}
+        ]
+    }
+})
+</script>
+<style>
+*{margin:0;padding:0;box-sizing: border-box;}
+.list{width:400px;border:1px solid #000;border-collapse: collapse;}
+.list td, .list th{border:1px solid #000;text-align:center;}
+.list > thead > tr{color:yellow;background-color:purple}
+</style>
+</body>
+</html>

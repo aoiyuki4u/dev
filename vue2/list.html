@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <title>Vue : List</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <h1>The multiplication table of 4.</h1>
+            <ul class="list-group">
+                <li v-for="i in 10" class="list-group-item">
+                    {{i}} times 4 equals {{(i)*4}}
+                </li>
+            </ul>
+            
+            <br><br><hr><br>
+
+            <ul class="list-group">
+                <li v-for="text in stories" class="list-group-item">
+                    text "{{text}}"
+                </li>
+            </ul>
+
+            <br><br><hr><br>
+
+            <ul class="list-group">
+                <li v-for="(part, index) in stories2" class="list-group-item">
+                    {{index}} {{part.ux}} : "{{part.publisher}}"
+                </li>
+            </ul>
+
+            <br><br><hr><br>
+
+            <ul class="list-group">
+                <li v-for="(value, key, index) in story" class="list-group-item">
+                    {{index}} : {{key}} : {{value}}
+                </li>
+            </ul>
+
+            <br><br><hr><br>
+            <ul class="list-group">
+                <li v-for="(value, key, index) in company" class="list-group-item">
+                    {{index}} : {{key}} : {{value}}
+                </li>
+            </ul>
+
+        </div>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+    <script>
+        new Vue({
+            el:'.container',
+            data:{
+                stories:[
+                    'Start',
+                    'Vue',
+                    'Study'
+                ],
+                stories2:[
+                    {
+                        ux:'ux1',
+                        publisher:'Park',
+                    },
+                    {
+                        ux:'ux2',
+                        publisher:'Kim',
+                    },
+                    {
+                        ux:'ux3',
+                        publisher:'Jung',
+                    },
+                ],
+                story:{
+                    plot:'plot1',
+                    writer:'wirter1',
+                    upvotes:'upvotes1'
+                },
+                company:{
+                    name:'ipa',
+                    height:'180',
+                    weight:'80',
+                }
+            }
+        });
+    </script>
+</html>

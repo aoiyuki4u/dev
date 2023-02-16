@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf">
+<title>Welcome to Vue</title>
+<script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
+</head>
+<body>
+<div id="app">
+    <!-- <hello-component></hello-component>
+    <hello-component></hello-component>
+    <hello-component></hello-component> -->
+    <template id="helloTemplate">
+        <div>hello world</div>
+    </template>
+    <!-- <script type="text/x-template" id="helloTemplate">
+        <div>hello world</div>
+    </script> 뭐야 안돼-->
+</div>
+
+<script type="text/javascript">
+// Vue.component('hello-component', {
+//     template : '<div>hello world!!!</div>'
+// })
+Vue.component('hello-component', {
+    template:'#helloTemplate'
+})
+</script>
+<script type="text/javascript">
+Vue.config.devtools = true;
+var v = new Vue({
+    el : '#app'
+})
+</script>
+<style>
+*{margin:0;padding:0;box-sizing: border-box;}
+
+</style>
+</body>
+</html>

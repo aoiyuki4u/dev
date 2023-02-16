@@ -1,0 +1,93 @@
+<html>
+<head>
+    <title>Vue : Event</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="wrap">
+    <div class="container">
+        <h1>Let's hear some stories!</h1>
+        <ul class="list-group">
+            <story v-for="(story, index) in stories" :key="index" :story="story" :favorite="favorite" @update="updateFavorite"></story>
+        </ul>
+        <pre>
+            {{ $data }}
+        </pre>
+    </div>
+</div>
+<template id="story-template">
+    <li class="list-group-item">
+        {{story.writer}} said "{{story.plot}}". story upvotes {{story.upvotes}}
+        <button v-show="!story.voted" @click="upvote" class="btn btn-default">Upvote</button>
+        <button v-show="!isFavorite" @click="markAsFavorite" class="btn btn-primary">Favorite</button>
+        <span v-show="isFavorite" class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span>
+    </li>
+</template>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+<script type="text/javascript">
+Vue.component('story',{
+    template:'#story-template',
+    props:['story', 'favorite'],
+    methods:{
+        upvote:function(){
+            this.story.upvotes +=1;
+            this.story.voted = true;
+        },
+        markAsFavorite:function(){
+            this.$emit('update', this.story)
+        },
+    },
+    computed:{
+        isFavorite:function(){
+            return this.story ==this.favorite;
+        },
+    }
+});
+
+new Vue({
+    el:'.wrap',
+    data:{
+        stories:[
+            {
+                plot:'plot1',
+                writer:'writer1',
+                vupvotes:11,
+                voted:false,
+            },
+            {
+                plot:'plot2',
+                writer:'writer2',
+                vupvotes:22,
+                voted:false,
+            },
+            {
+                plot:'plot3',
+                writer:'writer3',
+                vupvotes:33,
+                voted:false,
+            },
+            {
+                plot:'plot4',
+                writer:'writer4',
+                vupvotes:44,
+                voted:false,
+            },
+        ],
+        favorite:{}
+    },
+    methods:{
+        updateFavorite:function(story){
+            this.favorite = story;
+        },
+    },
+});
+
+
+
+</script>
+<style type="text/css">
+    *{margin:0;padding:0;}
+    .wrap{padding:30px;}
+</style>
+</html>
